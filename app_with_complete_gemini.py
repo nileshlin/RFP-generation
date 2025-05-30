@@ -1,5 +1,6 @@
 import os
 import glob
+import pathlib
 from pathlib import Path
 import re
 import json
@@ -19,6 +20,7 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from dotenv import load_dotenv
 from spacy.cli import download
+from spacy.util import set_data_path
 
 load_dotenv()
 
@@ -82,6 +84,7 @@ class RFPParser:
         try:
             self.nlp = spacy.load("en_core_web_sm")
         except OSError:
+            set_data_path(pathlib.Path("./spacy_models"))
             download("en_core_web_sm")
             self.nlp = spacy.load("en_core_web_sm")
 
