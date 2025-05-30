@@ -92,7 +92,7 @@ if st.session_state["generated_files"]:
         if file_path.endswith(".docx"):
             try:
                 doc = Document(absolute_path)
-                content = "\n".join([para.text for para in doc.paragraphs[:100]])[:1000]
+                content = "\n".join([para.text for para in doc.paragraphs[:10]])[:1000]
                 with st.expander(f"Preview: {file_name}"):
                     st.text_area("Content Preview", content, height=200)
             except Exception as e:
