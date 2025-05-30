@@ -1,6 +1,5 @@
 langchain
 spacy
-# sqlite3
 google-generativeai
 streamlit
 python-docx
@@ -11,5 +10,4 @@ spacy
 pandas 
 nltk 
 scikit-learn
-
-#python -m spacy download en_core_web_sm
+python-dotenv
