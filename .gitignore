@@ -1,0 +1,15 @@
+.env
+app.py
+main-with-cohere.py
+uploads.zip
+main.py
+
+/__pycache__
+/.vscode
+/generated_files
+/OneDrive_2_5-16-2025
+/output
+/proposal
+/RFP
+/uploads
+/venv
