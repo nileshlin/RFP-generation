@@ -3,7 +3,7 @@ import os
 from docx import Document
 import logging
 from typing import List
-from app_with_complete_gemini import RFPGenerator
+from app import RFPGenerator
 import google.generativeai as genai
 
 # Configure logging
