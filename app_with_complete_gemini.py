@@ -1,6 +1,5 @@
 import os
 import glob
-import pathlib
 from pathlib import Path
 import re
 import json
@@ -10,7 +9,6 @@ from datetime import datetime, timedelta
 import logging
 import pdfplumber
 import spacy
-# import cohere
 import google.generativeai as genai
 import numpy as np
 from docx import Document
@@ -19,7 +17,6 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from dotenv import load_dotenv
-from spacy.cli import download
 
 load_dotenv()
 
@@ -83,8 +80,8 @@ class RFPParser:
         try:
             self.nlp = spacy.load("en_core_web_sm")
         except OSError:
-            download("en_core_web_sm")
-            self.nlp = spacy.load("en_core_web_sm")
+            logging.error(f"Failed to load en_core_web_sm: {e}")
+            raise OSError("Ensure en_core_web_sm is installed via requirements.txt")
 
         self.common_patterns = [
             r"Scope\s+of\s+Work",

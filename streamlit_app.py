@@ -23,8 +23,8 @@ if "generated_files" not in st.session_state:
 
 # Sidebar for file uploads
 st.sidebar.header("Upload RFP and Proposal Files")
-rfp_upload = st.sidebar.file_uploader("Upload RFP Files (PDF/TXT)", type=["pdf", "txt"], accept_multiple_files=True)
-proposal_upload = st.sidebar.file_uploader("Upload Proposal Files (DOCX/TXT)", type=["docx", "txt"], accept_multiple_files=True)
+rfp_upload = st.sidebar.file_uploader("Upload RFP Files (PDF/DOCX/TXT)", type=["pdf", "docx", "txt"], accept_multiple_files=True)
+proposal_upload = st.sidebar.file_uploader("Upload Proposal Files (PDF/DOCX/TXT)", type=["pdf", "docx", "txt"], accept_multiple_files=True)
 
 # Save uploaded files
 def save_uploaded_files(uploaded_files, folder: str, prefix="uploaded") -> List[str]:
@@ -74,12 +74,12 @@ if st.button("Generate RFP"):
             st.error(f"Error generating RFP: {str(e)}")
             logger.error(f"Error generating RFP: {e}")
 
-# Display generated DOCX files in main section (exclude validation report)
+# Display generated DOCX files in main section
 if st.session_state["generated_files"]:
     st.header("Generated RFP Output")
     for file_path in st.session_state["generated_files"]:
         file_name = os.path.basename(file_path)
-        if file_name.endswith("validation_report.txt"):  # Skip validation report
+        if file_name.endswith("validation_report.txt"):
             continue
         absolute_path = os.path.abspath(file_path)
         logger.debug(f"Attempting to access file: {absolute_path}")
@@ -90,17 +90,15 @@ if st.session_state["generated_files"]:
             continue
 
         if file_path.endswith(".docx"):
-            # Preview DOCX content
             try:
                 doc = Document(absolute_path)
-                content = "\n".join([para.text for para in doc.paragraphs[:10]])[:1000]
+                content = "\n".join([para.text for para in doc.paragraphs[:100]])[:1000]
                 with st.expander(f"Preview: {file_name}"):
                     st.text_area("Content Preview", content, height=200)
             except Exception as e:
                 st.warning(f"Could not preview {file_name}: {e}")
                 logger.error(f"Preview error for {file_name}: {e}")
         elif file_path.endswith(".txt"):
-            # Preview TXT content
             try:
                 with open(absolute_path, 'r', encoding='utf-8') as f:
                     content = f.read()[:1000]
