@@ -319,9 +319,10 @@ class RFPParser:
             # 'background': {},
             'scope_of_services': {},
             'timeline': {},
-            # 'insurance_requirements': {},
+            'insurance_requirements': {},
             'terms_and_conditions': {},
             'attachments': {},
+            'mandatory_forms': {}, 
             'appendices': {},
             'submitter_information': {}
         }
